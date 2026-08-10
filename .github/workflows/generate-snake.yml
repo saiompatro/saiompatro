@@ -25,6 +25,9 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
+      - name: Animate the post-game greeting
+        run: node scripts/add-greeting.js dist/github-contribution-grid-snake.svg dist/github-contribution-grid-snake-dark.svg
+
       - name: Publish the snake animation
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:

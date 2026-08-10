@@ -37,14 +37,5 @@ for (const file of files) {
     @keyframes form-exclamation { 0%, 90% { opacity: 0; transform: scale(0); } 93%, 99% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0); } }
   </style><g class="greeting" aria-label="Hi!"><g class="letter h">${h}</g><g class="letter i">${i}</g><g class="letter exclamation">${exclamation}</g></g>`;
 
-  const styleEnd = svg.indexOf("</style>");
-  if (styleEnd === -1) {
-    throw new Error(`${file} does not contain the generated animation styles.`);
-  }
-
-  const generatedStyles = svg.slice(0, styleEnd + "</style>".length);
-  const generatedGame = svg.slice(styleEnd + "</style>".length, -"</svg>".length);
-  const mirroredGame = `<g transform="translate(848 0) scale(-1 1)">${generatedGame}</g>`;
-
-  fs.writeFileSync(file, `${generatedStyles}${mirroredGame}${overlay}</svg>`);
+  fs.writeFileSync(file, svg.replace("</svg>", `${overlay}</svg>`));
 }

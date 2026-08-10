@@ -20,10 +20,21 @@ jobs:
       - name: Check out the profile repository
         uses: actions/checkout@v4
 
+      - name: Check out the pinned snake generator
+        uses: actions/checkout@v4
+        with:
+          repository: Platane/snk
+          ref: v3.5.0
+          path: vendor/snk
+
+      - name: Start the snake from the right
+        run: node scripts/configure-snake-generator.js vendor/snk/svg-only/dist/index.js
+
       - name: Generate the contribution snake
-        uses: Platane/snk/svg-only@v3
+        uses: ./vendor/snk/svg-only
         with:
           github_user_name: ${{ github.repository_owner }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark

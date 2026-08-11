@@ -39,15 +39,17 @@ for (const file of files) {
         .filter((percentage) => percentage < 100),
     ),
   );
-  const launch = Math.min(97, latestContribution + 0.1).toFixed(2);
-  const arrival = Math.min(99, Number(launch) + 1.8).toFixed(2);
+  // Keep the greeting on the original, longer timeline so it remains visible
+  // while the snake itself completes three accelerated loops.
+  const launch = (Math.min(97, latestContribution + 0.1) / 3).toFixed(2);
+  const arrival = Math.min(90, Number(launch) + 4).toFixed(2);
 
   const overlay = `<style>
     .greeting { fill: var(--c3); stroke: var(--ce); stroke-width: 1; }
-    .greeting .dot { opacity: 0; transform-box: fill-box; transform-origin: center; animation: spit ${duration}ms linear infinite; }
-    .greeting .muzzle { opacity: 0; animation: muzzle-flash ${duration}ms linear infinite; }
-    @keyframes spit { 0%, ${launch}% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.45); } ${(Number(launch) + 0.1).toFixed(2)}% { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(0.45); } ${arrival}%, 99.7% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(0, 0) scale(0.45); } }
-    @keyframes muzzle-flash { 0%, ${launch}% { opacity: 0; r: 2; } ${(Number(launch) + 0.1).toFixed(2)}% { opacity: 1; r: 7; } ${arrival}% { opacity: 0; r: 2; } 100% { opacity: 0; r: 2; } }
+    .greeting .dot { opacity: 0; transform-box: fill-box; transform-origin: center; animation: spit ${originalDuration}ms linear infinite; }
+    .greeting .muzzle { opacity: 0; animation: muzzle-flash ${originalDuration}ms linear infinite; }
+    @keyframes spit { 0%, ${launch}% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.45); } ${(Number(launch) + 0.3).toFixed(2)}% { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(0.45); } ${arrival}%, 95% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(0, 0) scale(0.45); } }
+    @keyframes muzzle-flash { 0%, ${launch}% { opacity: 0; r: 2; } ${(Number(launch) + 0.3).toFixed(2)}% { opacity: 1; r: 7; } ${arrival}% { opacity: 0; r: 2; } 100% { opacity: 0; r: 2; } }
   </style><g class="greeting" aria-label="Hi!"><circle class="muzzle" cx="838" cy="8" r="2" />${h}${i}${exclamation}</g>`;
 
   const accelerated = svg.replaceAll(`${originalDuration}ms`, `${duration}ms`);

@@ -2,7 +2,7 @@
 
 I build ML systems and turn research papers into code that actually runs.
 
-Incoming CS student at the University of Washington. Based in Mumbai until September.
+CS student at the University of Washington. Based in Mumbai until September.
 
 ## Now
 
